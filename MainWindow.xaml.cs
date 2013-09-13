@@ -339,7 +339,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
                         Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
-
+                        int quad = ChooseQuadrant(lastScreenPosition.X, lastScreenPosition.Y);
 
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
