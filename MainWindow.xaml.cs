@@ -10,6 +10,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows;
     using System.Windows.Media;
     using Microsoft.Kinect;
+    using System;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -281,7 +282,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
- 
+
+            Point h = new Point();
+            Point s = new Point();
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -300,6 +303,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
+                if (joint.JointType == JointType.HandRight)
+                {
+                    h = this.SkeletonPointToScreen(joint.Position);
+                }
+                else if (joint.JointType == JointType.ShoulderRight)
+                {
+                    s = this.SkeletonPointToScreen(joint.Position);
+                }
+            }
+
+            if(((h.X <= s.X + 5) || (h.X >= s.X - 5)) && ((h.Y <= s.Y + 5) || (h.Y >= s.Y - 5)))
+            {
+                Console.Write("sup");
             }
         }
 
