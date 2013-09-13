@@ -83,12 +83,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         private DrawingImage imageSource;
 
+
+        private Joint lastHandPos;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            lastHandPos = new Joint();
         }
 
         /// <summary>
@@ -284,7 +288,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
 
-            Point lastHandPos = new Point(0,0);
+
             double threshold = 0.02;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
@@ -308,7 +312,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     //if (((lastHandPos.X + threshold > joint.Position.X) || (lastHandPos.X + threshold < joint.Position.X)) ||
                     //    ((lastHandPos.Y + threshold > joint.Position.Y) || (lastHandPos.Y + threshold < joint.Position.Y)))
-                    if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
+                    //if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
+                    if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
@@ -321,8 +326,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         statusBar.Background = Brushes.Red;
                     }
                 }
-                lastHandPos.X = joint.Position.X;
-                lastHandPos.Y = joint.Position.Y;
+                lastHandPos = joint;
             }
         }
 
