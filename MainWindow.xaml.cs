@@ -385,7 +385,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             // Convert point to color space.  
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
-            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColor(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
+            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColorPoint(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
             return new Point(colorPoint.X, colorPoint.Y);
         }
         #endregion makeColorPoint
