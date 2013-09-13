@@ -295,6 +295,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             #region goo
             //comment
+            //new comment
             #endregion goo
 
 
