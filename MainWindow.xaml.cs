@@ -224,6 +224,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 // Draw a transparent background to set the render size
                 dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+                Pen p = new Pen();
+                p.Brush = Brushes.White;
+                for (int i = 1; i < 5; i++)
+                { 
+                    dc.DrawLine(p, new Point(RenderWidth*i / 5, 0.0), new Point(RenderWidth*i / 5, RenderHeight));
+                }
 
                 if (skeletons.Length != 0)
                 {
