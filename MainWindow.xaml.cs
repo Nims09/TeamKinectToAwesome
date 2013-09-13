@@ -312,10 +312,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     s = this.SkeletonPointToScreen(joint.Position);
                 }
             }
-
-            if(((h.X <= s.X + 5) || (h.X >= s.X - 5)) && ((h.Y <= s.Y + 5) || (h.Y >= s.Y - 5)))
+            int threshold = 20;
+            if (((h.X <= s.X + threshold) && (h.X >= s.X - threshold)) && ((h.Y <= s.Y + threshold) && (h.Y >= s.Y - threshold)))
             {
-                Console.Write("sup");
+                statusBar.Background = Brushes.Green;
+            }
+            else
+            {
+                statusBar.Background = Brushes.Red;
             }
         }
 
