@@ -259,6 +259,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
+            /*
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
@@ -287,9 +288,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
+             */
 
 
-            double threshold = 0.02;
+            double threshold = 0.03;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -304,12 +306,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     drawBrush = this.inferredJointBrush;                    
                 }
 
-                if (drawBrush != null)
+                /*if (drawBrush != null)
                 {
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
-                }
+                } */
                 if (joint.JointType == JointType.HandRight)
                 {
+                    drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                     //if (((lastHandPos.X + threshold > joint.Position.X) || (lastHandPos.X + threshold < joint.Position.X)) ||
                     //    ((lastHandPos.Y + threshold > joint.Position.Y) || (lastHandPos.Y + threshold < joint.Position.Y)))
                     //if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
