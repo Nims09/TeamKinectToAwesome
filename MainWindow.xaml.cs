@@ -290,6 +290,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
              */
 
+            #region goo
+            //comment
+            #endregion goo
 
             double threshold = 0.03;
             // Render Joints
