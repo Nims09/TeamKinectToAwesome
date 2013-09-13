@@ -54,9 +54,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5"/>
-            <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">Skeleton Basics</TextBlock>
-            <Image Grid.Column="1" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+            <TextBlock DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Search for: </TextBlock>
+            <TextBlock Name="SearchText" DockPanel.Dock="Right" Margin="3 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Brains</TextBlock>
         </DockPanel>
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image" Width="640" Height="480"/>
