@@ -351,6 +351,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         statusBar.Background = Brushes.Red;
                     }
+                    Point yo = SkeletonPointToScreen(joint.Position);
+                    Console.WriteLine(yo.X);
+                    Console.WriteLine(yo.Y);
+                    Console.WriteLine(ChooseQuadrant(yo.X, yo.Y));
                 }
                 lastHandPos = joint;
             }
@@ -367,6 +371,36 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // We are not using depth directly, but we do want the points in our 640x480 output resolution.
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
+        }
+
+        private int ChooseQuadrant(double X, double Y)
+        {
+            int posX;
+            int posY;
+
+            if (X < 128){
+                posX = 0;
+            } else if (X < 256){
+                posX = 1;
+            } else if (X < 384){
+                posX = 2;
+            } else if (X < 512) {
+                posX = 3;
+            } else {
+                posX = 4;
+            }
+
+
+            if (Y < 120){
+                posY = 0;
+            } else if (Y < 240){
+                posY = 1;
+            } else if (Y < 360){
+                posY = 2;
+            } else {
+                posY = 3;
+            }
+            return posX*4 + posY;
         }
 
         /// <summary>
