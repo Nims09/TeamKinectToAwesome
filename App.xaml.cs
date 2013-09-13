@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.InfraredBasics
+namespace Microsoft.Samples.Kinect.SkeletonBasics
 {
     using System.Windows;
 
