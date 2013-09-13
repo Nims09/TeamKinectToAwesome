@@ -364,6 +364,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
+        #region makeColorPoint
+        /// <summary>
+        /// Maps a SkeletonPoint to lie within our render space and converts to Color Point
+        /// </summary>
+        /// <param name="skelpoint">point to map</param>
+        /// <returns>mapped point</returns>
+        private Point SkeletonPointToColorPoint(SkeletonPoint skelpoint)
+        {
+            // Convert point to color space.  
+            // We are not using depth directly, but we do want the points in our 640x480 output resolution.
+            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColor(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
+            return new Point(colorPoint.X, colorPoint.Y);
+        }
+        #endregion makeColorPoint
 
         /// <summary>
         /// Draws a bone line between two joints
