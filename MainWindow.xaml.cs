@@ -223,7 +223,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             using (DrawingContext dc = this.drawingGroup.Open())
             {
                 // Draw a transparent background to set the render size
-                dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+                Rect[,] grid = new Rect[5,4];
+                //dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+                for(int i = 1; i < 5; i++)
+                {
+                    for (int j = 1; j < 4; j++)
+                    {
+                        grid[i, j] = new Rect(RenderWidth * (i - 1) / 5, RenderHeight * (j - 1) / 4, RenderWidth * (i) / 5, RenderHeight * (j) / 4);
+                        dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
+                    }
+                }
                 Pen p = new Pen();
                 p.Brush = Brushes.White;
                 for (int i = 1; i < 5; i++)
