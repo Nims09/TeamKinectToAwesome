@@ -54,8 +54,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <TextBlock DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Search for: </TextBlock>
-            <TextBlock Name="SearchText" DockPanel.Dock="Right" Margin="3 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Brains</TextBlock>
+            <TextBlock DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Human Keyboard</TextBlock>
         </DockPanel>
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image" Width="640" Height="480"/>
