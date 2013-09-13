@@ -11,6 +11,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows.Media;
     using Microsoft.Kinect;
     using System;
+    using System.Media;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -283,8 +284,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
 
-            Point h = new Point();
-            Point s = new Point();
+            Point lastHandPos = new Point(0,0);
+            double threshold = 0.02;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -305,21 +306,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
                 if (joint.JointType == JointType.HandRight)
                 {
-                    h = this.SkeletonPointToScreen(joint.Position);
+                    //if (((lastHandPos.X + threshold > joint.Position.X) || (lastHandPos.X + threshold < joint.Position.X)) ||
+                    //    ((lastHandPos.Y + threshold > joint.Position.Y) || (lastHandPos.Y + threshold < joint.Position.Y)))
+                    if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
+                    {
+                        statusBar.Background = Brushes.Green;
+                        string s = Directory.GetCurrentDirectory();
+                        Console.Write(s);
+                        SoundPlayer SimpleSound = new SoundPlayer(@"\..\..\SoundClips\Piano.ff.G7.wav");
+                        SimpleSound.Play();
+                    }
+                    else
+                    {
+                        statusBar.Background = Brushes.Red;
+                    }
                 }
-                else if (joint.JointType == JointType.ShoulderRight)
-                {
-                    s = this.SkeletonPointToScreen(joint.Position);
-                }
-            }
-            int threshold = 20;
-            if (((h.X <= s.X + threshold) && (h.X >= s.X - threshold)) && ((h.Y <= s.Y + threshold) && (h.Y >= s.Y - threshold)))
-            {
-                statusBar.Background = Brushes.Green;
-            }
-            else
-            {
-                statusBar.Background = Brushes.Red;
+                lastHandPos.X = joint.Position.X;
+                lastHandPos.Y = joint.Position.Y;
             }
         }
 

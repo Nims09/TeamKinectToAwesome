@@ -10,3 +10,4 @@ C:\Users\Harriet\Documents\Visual Studio 2013\Projects\TeamKinectToAwesome\obj\D
 C:\Users\Harriet\Documents\Visual Studio 2013\Projects\TeamKinectToAwesome\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
 C:\Users\Harriet\Documents\Visual Studio 2013\Projects\TeamKinectToAwesome\obj\Debug\SkeletonBasics-WPF.exe
 C:\Users\Harriet\Documents\Visual Studio 2013\Projects\TeamKinectToAwesome\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Harriet\Documents\Visual Studio 2013\Projects\TeamKinectToAwesome\obj\Debug\SkeletonBasics-WPF_Content.g.cs
