@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{49EA2D7C-A2D2-42F0-A447-966AFFD19E42}</ProjectGuid>
+    <ProjectGuid>{8121846D-923E-4BB0-8647-30DA753D156E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Samples.Kinect.InfraredBasics</RootNamespace>
-    <AssemblyName>InfraredBasics-WPF</AssemblyName>
+    <RootNamespace>Microsoft.Samples.Kinect.SkeletonBasics</RootNamespace>
+    <AssemblyName>SkeletonBasics-WPF</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -102,6 +102,10 @@
     <Resource Include="Images\Kinect.ico" />
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Status.png" />
+    <Resource Include="Images\CheckedHover.png" />
+    <Resource Include="Images\CheckedNormal.png" />
+    <Resource Include="Images\UncheckedHover.png" />
+    <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
