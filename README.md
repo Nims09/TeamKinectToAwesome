@@ -1,0 +1,4 @@
+TeamKinectToAwesome
+===================
+
+Kinect Team Hackathon
