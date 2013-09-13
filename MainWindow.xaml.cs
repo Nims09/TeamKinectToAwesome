@@ -310,16 +310,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
              */
-            #region test13
-            //test more 
-            #endregion test13
-
-            #region goo
-            //comment
-            //new comment
-            #endregion goo
-
-
 
             double threshold = 0.03;
             // Render Joints
@@ -348,6 +338,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     //if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
                     if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
+                        Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
+
+
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
@@ -379,20 +372,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
-        #region makeColorPoint
-        /// <summary>
-        /// Maps a SkeletonPoint to lie within our render space and converts to Color Point
-        /// </summary>
-        /// <param name="skelpoint">point to map</param>
-        /// <returns>mapped point</returns>
-        private Point SkeletonPointToColorPoint(SkeletonPoint skelpoint)
-        {
-            // Convert point to color space.  
-            // We are not using depth directly, but we do want the points in our 640x480 output resolution.
-            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColorPoint(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
-            return new Point(colorPoint.X, colorPoint.Y);
-        }
-        #endregion makeColorPoint
 
         private int ChooseQuadrant(double X, double Y)
         {
