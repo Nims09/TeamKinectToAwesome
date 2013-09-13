@@ -10,6 +10,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using System.Windows;
     using System.Windows.Media;
     using Microsoft.Kinect;
+    using System;
+    using System.Media;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -281,7 +283,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
- 
+
+            Point lastHandPos = new Point(0,0);
+            double threshold = 0.02;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -300,6 +304,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
                 }
+                if (joint.JointType == JointType.HandRight)
+                {
+                    //if (((lastHandPos.X + threshold > joint.Position.X) || (lastHandPos.X + threshold < joint.Position.X)) ||
+                    //    ((lastHandPos.Y + threshold > joint.Position.Y) || (lastHandPos.Y + threshold < joint.Position.Y)))
+                    if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
+                    {
+                        statusBar.Background = Brushes.Green;
+                        string s = Directory.GetCurrentDirectory();
+                        Console.Write(s);
+                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\Piano.ff.G7.wav");
+                        SimpleSound.Play();
+                    }
+                    else
+                    {
+                        statusBar.Background = Brushes.Red;
+                    }
+                }
+                lastHandPos.X = joint.Position.X;
+                lastHandPos.Y = joint.Position.Y;
             }
         }
 
