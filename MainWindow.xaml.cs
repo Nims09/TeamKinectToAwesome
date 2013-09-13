@@ -222,6 +222,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             using (DrawingContext dc = this.drawingGroup.Open())
             {
+                #region gridDraw
                 // Draw a transparent background to set the render size
                 Rect[,] grid = new Rect[5,4];
                 //dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
@@ -243,8 +244,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     dc.DrawLine(p, new Point(0.0, RenderHeight*i/4), new Point(RenderWidth, RenderHeight*i/4));
                 }
+                #endregion gridDraw
 
-                    if (skeletons.Length != 0)
+                if (skeletons.Length != 0)
                     {
                         foreach (Skeleton skel in skeletons)
                         {
