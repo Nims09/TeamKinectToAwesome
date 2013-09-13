@@ -230,28 +230,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 { 
                     dc.DrawLine(p, new Point(RenderWidth*i / 5, 0.0), new Point(RenderWidth*i / 5, RenderHeight));
                 }
-
-                if (skeletons.Length != 0)
+                for (int i = 1; i < 4; i++)
                 {
-                    foreach (Skeleton skel in skeletons)
-                    {
-                        RenderClippedEdges(skel, dc);
+                    dc.DrawLine(p, new Point(0.0, RenderHeight*i/4), new Point(RenderWidth, RenderHeight*i/4));
+                }
 
-                        if (skel.TrackingState == SkeletonTrackingState.Tracked)
+                    if (skeletons.Length != 0)
+                    {
+                        foreach (Skeleton skel in skeletons)
                         {
-                            this.DrawBonesAndJoints(skel, dc);
-                        }
-                        else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
-                        {
-                            dc.DrawEllipse(
-                            this.centerPointBrush,
-                            null,
-                            this.SkeletonPointToScreen(skel.Position),
-                            BodyCenterThickness,
-                            BodyCenterThickness);
+                            RenderClippedEdges(skel, dc);
+
+                            if (skel.TrackingState == SkeletonTrackingState.Tracked)
+                            {
+                                this.DrawBonesAndJoints(skel, dc);
+                            }
+                            else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
+                            {
+                                dc.DrawEllipse(
+                                this.centerPointBrush,
+                                null,
+                                this.SkeletonPointToScreen(skel.Position),
+                                BodyCenterThickness,
+                                BodyCenterThickness);
+                            }
                         }
                     }
-                }
 
                 // prevent drawing outside of our render area
                 this.drawingGroup.ClipGeometry = new RectangleGeometry(new Rect(0.0, 0.0, RenderWidth, RenderHeight));
