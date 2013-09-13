@@ -313,7 +313,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
-                        SoundPlayer SimpleSound = new SoundPlayer(@"\..\..\SoundClips\Piano.ff.G7.wav");
+                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\Piano.ff.G7.wav");
                         SimpleSound.Play();
                     }
                     else
