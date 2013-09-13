@@ -2,4 +2,7 @@ TeamKinectToAwesome
 ===================
 
 Kinect Team Hackathon
-Yea.
+-Swing analyzer 
+-Surgery Simulator 
+-Japaneese tetris
+-virtual obstacle course
