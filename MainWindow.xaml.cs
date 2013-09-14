@@ -382,8 +382,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         Point yo = SkeletonPointToScreen(joint.Position);
                         SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
-                        SimpleSound.Play();
-                        
+                        SimpleSound.Play();                        
                         drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
