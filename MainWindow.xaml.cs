@@ -97,7 +97,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private DateTime instrumentSetTime;
 
+        private Point lastSquareHit;
 
+        private int flashCount = 0;
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
@@ -106,6 +108,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             InitializeComponent();
             lastHandPos = new Joint();
+            lastSquareHit = new Point(-1.0, -1.0);
         }
 
         /// <summary>
@@ -218,8 +221,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        //Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\" + sdi.Name + "\\" + fi[i * 4 + j].Name);
-                        //Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
                         simpleSoundPlayers[instrument, i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + sdi.Name + "\\" + fi[i * 3 + j].Name);
                     }
                 }
@@ -281,7 +282,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     for (int j = 0; j < 4; j++)
                     {
                         grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
-                        dc.DrawRectangle(brushes[i,j], null, grid[i,j]);
+                        if(i == (int)lastSquareHit.X && j == (int)lastSquareHit.Y) dc.DrawRectangle(Brushes.White, null, grid[i,j]);
+                        else dc.DrawRectangle(brushes[i,j], null, grid[i,j]);
                         if (j == 3)
                         {
                             switch (i)
@@ -419,8 +421,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         }
                         else
                         {
-                            simpleSoundPlayers[instrumentNo, (int)p.X, (int)p.Y].PlaySync();
+                            simpleSoundPlayers[instrumentNo, (int)p.X, (int)p.Y].Play();
+                            lastSquareHit = p;
+                            flashCount = 0;
                         }
+                        flashCount++;
+                        if (flashCount > 5) lastSquareHit = new Point(-1.0,-1.0);
                     }
                     else
                     {
