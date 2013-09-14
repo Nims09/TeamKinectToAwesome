@@ -92,6 +92,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private SolidColorBrush[,] brushes;
 
+        private int instrumentNo;
+
 
 
         /// <summary>
@@ -407,8 +409,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         //SimpleSound.SoundLocation = s + "\\..\\..\\" + @"\SoundClips\M1_Piano_F#6.wav"; //+ ChooseSound(yo);
 
 
-                        ChooseSound(yo);
-                        drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
+                        //ChooseSound(yo);
+                        Point p = ChooseQuadrant(yo);
+                        if(p.Y == 3)
+                        {
+                            if (p.X < 4 && p.X > 0) this.instrumentNo = (int)(p.X - 1);
+                        }
+                        else
+                        {
+                            simpleSoundPlayers[instrumentNo, (int)p.X, (int)p.Y].PlaySync();
+                        }
+                        //drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
                     {
@@ -496,23 +507,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
 
-        private Rect ChooseQuadrant(Point P)
+        private Point ChooseQuadrant(Point P)
         {
             int posX;
             int posY;
 
-            if (P.X < RenderWidth/5) posX = 0;
-            else if (P.X < 2*RenderWidth/5) posX = 1;
-            else if (P.X < 3 * RenderWidth / 5) posX = 2;
-            else if (P.X < 4 * RenderWidth / 5) posX = 3;
-            else posX = 4;
+            if (P.X < RenderWidth/5)                posX = 0;
+            else if (P.X < 2*RenderWidth/5)         posX = 1;
+            else if (P.X < 3 * RenderWidth / 5)     posX = 2;
+            else if (P.X < 4 * RenderWidth / 5)     posX = 3;
+            else                                    posX = 4;
 
             if (P.Y < RenderHeight/4)               posY = 0;
             else if (P.Y < 2 * RenderHeight/4)      posY = 1;
             else if (P.Y < 3 * RenderHeight / 4)    posY = 2;
             else                                    posY = 3;
             
-            return grid[posX, posY];
+            return new Point(posX, posY);
         }
 
         /// <summary>
@@ -550,25 +561,5 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position));
         }
-
-        /// <summary>
-        /// Handles the checking or unchecking of the seated mode combo box
-        /// </summary>
-        /// <param name="sender">object sending the event</param>
-        /// <param name="e">event arguments</param>
-        /*private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
-        {
-            if (null != this.sensor)
-            {
-                if (this.checkBoxSeatedMode.IsChecked.GetValueOrDefault())
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
-                }
-                else
-                {
-                    this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
-                }
-            }
-        }*/
     }
 }
