@@ -383,50 +383,47 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     drawBrush = this.inferredJointBrush;                    
                 }
 
-                /*if (drawBrush != null)
+                if (joint.JointType == JointType.HandRight || joint.JointType == JointType.HandLeft)
                 {
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
-                } */
-                if (joint.JointType == JointType.HandRight)
-                {
-                    drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
-                    //if (((lastHandPos.X + threshold > joint.Position.X) || (lastHandPos.X + threshold < joint.Position.X)) ||
-                    //    ((lastHandPos.Y + threshold > joint.Position.Y) || (lastHandPos.Y + threshold < joint.Position.Y)))
-                    //if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
                     if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
                         Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
-                        //int quad = ChooseQuadrant(lastScreenPosition.X, lastScreenPosition.Y);
 
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
 
                         Point yo = SkeletonPointToScreen(joint.Position);
-                        //SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
-                        //SimpleSound.Play();      
-
-                        //SimpleSound.SoundLocation = s + "\\..\\..\\" + @"\SoundClips\M1_Piano_F#6.wav"; //+ ChooseSound(yo);
-
-
-                        //ChooseSound(yo);
+                       
                         Point p = ChooseQuadrant(yo);
                         if(p.Y == 3)
                         {
                             if (p.X < 4 && p.X > 0) this.instrumentNo = (int)(p.X - 1);
+                            switch (this.instrumentNo)
+                            {
+                                case 0:
+                                    titletext.Text = "Drumkit";
+                                    break;
+                                case 1:
+                                    titletext.Text = "Piano";
+                                    break;
+                                default:
+                                    titletext.Text = "Saxophone";
+                                    break;
+                            }
+                                
                         }
                         else
                         {
                             simpleSoundPlayers[instrumentNo, (int)p.X, (int)p.Y].PlaySync();
                         }
-                        //drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
                     {
                         statusBar.Background = Brushes.Red;
                     }
 
-//                    text.Text = Convert.ToString(ChooseQuadrant(yo)) + " " + Convert.ToString(yo.X) + " " + Convert.ToString(yo.Y);
                 }
                 lastHandPos = joint;
             }

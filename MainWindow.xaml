@@ -54,7 +54,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <TextBlock Name="text" DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Humans</TextBlock>
+            <TextBlock Name="titletext" DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Drumkit</TextBlock>
         </DockPanel>
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image" Width="640" Height="480"/>
