@@ -18,6 +18,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Rect[,] grid;
+
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -224,13 +226,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 #region gridDraw
                 // Draw a transparent background to set the render size
-                Rect[,] grid = new Rect[5,4];
+                grid = new Rect[5,4];
                 //dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
-                for(int i = 1; i < 5; i++)
+                for(int i = 0; i < 5; i++)
                 {
-                    for (int j = 1; j < 4; j++)
+                    for (int j = 0; j < 4; j++)
                     {
-                        grid[i, j] = new Rect(RenderWidth * (i - 1) / 5, RenderHeight * (j - 1) / 4, RenderWidth * (i) / 5, RenderHeight * (j) / 4);
+                        grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
                         dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
                     }
                 }
@@ -310,6 +312,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
             this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
              */
+            #region test13
+            //test more 
+            #endregion test13
+
+            #region goo
+            //comment
+            //new comment
+            #endregion goo
+
+
 
             double threshold = 0.03;
             // Render Joints
@@ -338,9 +350,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     //if((Math.Abs(lastHandPos.X) - Math.Abs(joint.Position.X) > threshold) || (Math.Abs(lastHandPos.Y) - Math.Abs(joint.Position.Y) > threshold))
                     if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
+<<<<<<< HEAD
                         Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
                         int quad = ChooseQuadrant(lastScreenPosition.X, lastScreenPosition.Y);
 
+=======
+>>>>>>> 8216126b113f853bba4a4fdfcd8e8ab1f2ad3447
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
@@ -351,10 +366,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         statusBar.Background = Brushes.Red;
                     }
+
                     Point yo = SkeletonPointToScreen(joint.Position);
-                    Console.WriteLine(yo.X);
-                    Console.WriteLine(yo.Y);
-                    Console.WriteLine(ChooseQuadrant(yo.X, yo.Y));
+
+
+                    drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
+//                    text.Text = Convert.ToString(ChooseQuadrant(yo)) + " " + Convert.ToString(yo.X) + " " + Convert.ToString(yo.Y);
                 }
                 lastHandPos = joint;
             }
@@ -372,35 +389,66 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
+        #region makeColorPoint
+        /// <summary>
+        /// Maps a SkeletonPoint to lie within our render space and converts to Color Point
+        /// </summary>
+        /// <param name="skelpoint">point to map</param>
+        /// <returns>mapped point</returns>
+        private Point SkeletonPointToColorPoint(SkeletonPoint skelpoint)
+        {
+            // Convert point to color space.  
+            // We are not using depth directly, but we do want the points in our 640x480 output resolution.
+            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColorPoint(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
+            return new Point(colorPoint.X, colorPoint.Y);
+        }
+        #endregion makeColorPoint
 
-        private int ChooseQuadrant(double X, double Y)
+        private Rect ChooseQuadrant(Point P)
         {
             int posX;
             int posY;
 
-            if (X < 128){
+            if (P.X < 128)
+            {
                 posX = 0;
-            } else if (X < 256){
+            }
+            else if (P.X < 256)
+            {
                 posX = 1;
-            } else if (X < 384){
+            }
+            else if (P.X < 384)
+            {
                 posX = 2;
-            } else if (X < 512) {
+            }
+            else if (P.X < 512)
+            {
                 posX = 3;
-            } else {
+            }
+            else
+            {
                 posX = 4;
             }
 
 
-            if (Y < 120){
+            if (P.Y < 120)
+            {
                 posY = 0;
-            } else if (Y < 240){
+            }
+            else if (P.Y < 240)
+            {
                 posY = 1;
-            } else if (Y < 360){
+            }
+            else if (P.Y < 360)
+            {
                 posY = 2;
-            } else {
+            }
+            else
+            {
                 posY = 3;
             }
-            return posX*4 + posY;
+            text.Text = posX +" "+ posY;
+            return grid[posX, posY];
         }
 
         /// <summary>

@@ -109,6 +109,26 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="SoundClips\CYCdh_Crash-03.wav" />
+    <Content Include="SoundClips\CYCdh_LooseKick-03.wav" />
+    <Content Include="SoundClips\CYCdh_LudFlamA-04.wav" />
+    <Content Include="SoundClips\CYCdh_Sab_ClHat-03.wav" />
+    <Content Include="SoundClips\M1_Piano_C0.wav" />
+    <Content Include="SoundClips\M1_Piano_C1.wav" />
+    <Content Include="SoundClips\M1_Piano_C2.wav" />
+    <Content Include="SoundClips\M1_Piano_C3.wav" />
+    <Content Include="SoundClips\M1_Piano_C4.wav" />
+    <Content Include="SoundClips\M1_Piano_C5.wav" />
+    <Content Include="SoundClips\M1_Piano_C6.wav" />
+    <Content Include="SoundClips\M1_Piano_C7.wav" />
+    <Content Include="SoundClips\M1_Piano_F#0.wav" />
+    <Content Include="SoundClips\M1_Piano_F#1.wav" />
+    <Content Include="SoundClips\M1_Piano_F#2.wav" />
+    <Content Include="SoundClips\M1_Piano_F#3.wav" />
+    <Content Include="SoundClips\M1_Piano_F#4.wav" />
+    <Content Include="SoundClips\M1_Piano_F#5.wav" />
+    <Content Include="SoundClips\M1_Piano_F#6.wav" />
+    <Content Include="SoundClips\M1_Piano_F#7.wav" />
     <Content Include="SoundClips\Piano.ff.G7.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
