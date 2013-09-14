@@ -18,8 +18,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Rect[,] grid;
-
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -88,6 +86,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private Joint lastHandPos;
 
+        private Rect[,] grid;
+
+        private SoundPlayer[,] simpleSoundPlayers;
+
+
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -144,6 +148,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            PrepareSoundStrings();
+
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -191,6 +197,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        private void PrepareSoundStrings()
+        {
+            simpleSoundPlayers = new SoundPlayer[5, 4];
+            string s = Directory.GetCurrentDirectory();
+            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
+            FileInfo[] fi = di.GetFiles();
+            Console.WriteLine(di.FullName);
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    simpleSoundPlayers[i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + fi[i * 4 + j].Name);
+                }
+            }
+        }
+
         /// <summary>
         /// Execute shutdown tasks
         /// </summary>
@@ -233,7 +255,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     for (int j = 0; j < 4; j++)
                     {
                         grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
-                        dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
+                        if(j % 2 == 0) dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
+                        else dc.DrawRectangle(Brushes.Gray, null, grid[i, j]);
                     }
                 }
                 Pen p = new Pen();
@@ -323,7 +346,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            double threshold = 0.03;
+            double threshold = 0.05;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -359,18 +382,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
-                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\Piano.ff.G7.wav");
-                        SimpleSound.Play();
+
+                        Point yo = SkeletonPointToScreen(joint.Position);
+
+                        //SimpleSound.SoundLocation = s + "\\..\\..\\" + @"\SoundClips\M1_Piano_F#6.wav"; //+ ChooseSound(yo);
+
+
+                        ChooseSound(yo);
+                        drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
                     {
                         statusBar.Background = Brushes.Red;
                     }
 
-                    Point yo = SkeletonPointToScreen(joint.Position);
-
-
-                    drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
 //                    text.Text = Convert.ToString(ChooseQuadrant(yo)) + " " + Convert.ToString(yo.X) + " " + Convert.ToString(yo.Y);
                 }
                 lastHandPos = joint;
@@ -404,24 +429,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
         #endregion makeColorPoint
 
-        private Rect ChooseQuadrant(Point P)
+        private void ChooseSound(Point P)
         {
             int posX;
             int posY;
 
-            if (P.X < 128)
+            if (P.X < RenderWidth / 5)
             {
                 posX = 0;
             }
-            else if (P.X < 256)
+            else if (P.X < 2 * RenderWidth / 5)
             {
                 posX = 1;
             }
-            else if (P.X < 384)
+            else if (P.X < 3 * RenderWidth / 5)
             {
                 posX = 2;
             }
-            else if (P.X < 512)
+            else if (P.X < 4 * RenderWidth / 5)
             {
                 posX = 3;
             }
@@ -431,15 +456,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
 
-            if (P.Y < 120)
+            if (P.Y < RenderHeight / 4)
             {
                 posY = 0;
             }
-            else if (P.Y < 240)
+            else if (P.Y < 2 * RenderHeight / 4)
             {
                 posY = 1;
             }
-            else if (P.Y < 360)
+            else if (P.Y < 3 * RenderHeight / 4)
             {
                 posY = 2;
             }
@@ -447,7 +472,55 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 posY = 3;
             }
-            text.Text = posX +" "+ posY;
+
+            simpleSoundPlayers[posX, posY].PlaySync();
+        }
+
+
+        private Rect ChooseQuadrant(Point P)
+        {
+            int posX;
+            int posY;
+
+            if (P.X < RenderWidth/5)
+            {
+                posX = 0;
+            }
+            else if (P.X < 2*RenderWidth/5)
+            {
+                posX = 1;
+            }
+            else if (P.X < 3 * RenderWidth / 5)
+            {
+                posX = 2;
+            }
+            else if (P.X < 4 * RenderWidth / 5)
+            {
+                posX = 3;
+            }
+            else
+            {
+                posX = 4;
+            }
+
+
+            if (P.Y < RenderHeight/4)
+            {
+                posY = 0;
+            }
+            else if (P.Y < 2 * RenderHeight/4)
+            {
+                posY = 1;
+            }
+            else if (P.Y < 3 * RenderHeight / 4)
+            {
+                posY = 2;
+            }
+            else
+            {
+                posY = 3;
+            }
+            //text.Text = posX +" "+ posY;
             return grid[posX, posY];
         }
 
