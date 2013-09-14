@@ -191,10 +191,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
 
-            if (null == this.sensor)
-            {
-                this.statusBarText.Text = Properties.Resources.NoKinectReady;
-            }
         }
 
         private void PrepareSoundStrings()
@@ -374,7 +370,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
                     {
                         Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
-                        int quad = ChooseQuadrant(lastScreenPosition.X, lastScreenPosition.Y);
+                        //int quad = ChooseQuadrant(lastScreenPosition.X, lastScreenPosition.Y);
 
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
@@ -564,7 +560,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-        private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
+        /*private void CheckBoxSeatedModeChanged(object sender, RoutedEventArgs e)
         {
             if (null != this.sensor)
             {
@@ -577,6 +573,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
                 }
             }
-        }
+        }*/
     }
 }
