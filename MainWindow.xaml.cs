@@ -229,11 +229,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void PrepareGridBrushes()
         {
-            this.brushes = new SolidColorBrush[5,4] {{Brushes.Chartreuse, Brushes.Coral, Brushes.BlueViolet, Brushes.CornflowerBlue},
-                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
-                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
-                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
-                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue}};
+            this.brushes = new SolidColorBrush[5,4] {{Brushes.PaleGreen, Brushes.PaleTurquoise, Brushes.LightPink, Brushes.LightSteelBlue},
+                        {Brushes.LightCoral, Brushes.Khaki, Brushes.LightSkyBlue, Brushes.PaleGreen},
+                        {Brushes.PaleTurquoise, Brushes.PaleGreen, Brushes.LightSteelBlue, Brushes.LightSalmon},
+                        {Brushes.Khaki, Brushes.Plum, Brushes.LightPink, Brushes.LightBlue},
+                        {Brushes.LightCoral, Brushes.PaleTurquoise, Brushes.Khaki, Brushes.PaleGreen}};
         }
     
 
