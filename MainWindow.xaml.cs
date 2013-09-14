@@ -204,6 +204,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             foreach(DirectoryInfo sdi in di.GetDirectories())
             {
+                if (instrument > 2) break;
+
                 FileInfo[] fi = sdi.GetFiles();
 
                 for (int i = 0; i < 5; i++)
@@ -489,7 +491,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 posY = 3;
             }
 
-            simpleSoundPlayers[posX, posX, posY].PlaySync();
+            simpleSoundPlayers[0, posX, posY].PlaySync();
         }
 
 
