@@ -384,7 +384,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 if (joint.JointType == JointType.HandRight || joint.JointType == JointType.HandLeft)
                 {
                     drawingContext.DrawEllipse(drawBrush, null, this.SkeletonPointToScreen(joint.Position), JointThickness, JointThickness);
-                    if (Math.Abs(lastHandPos.Position.Z) - Math.Abs(joint.Position.Z) > threshold)
+                    if (lastHandPos.Position.Z - joint.Position.Z > threshold)
                     {
                         Point lastScreenPosition = SkeletonPointToScreen(lastHandPos.Position);
 
@@ -425,7 +425,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             lastSquareHit = p;
                             flashCount = 0;
                         }
-                        flashCount++;
                         if (flashCount > 5) lastSquareHit = new Point(-1.0,-1.0);
                     }
                     else
@@ -434,6 +433,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     }
 
                 }
+                flashCount++;
                 lastHandPos = joint;
             }
         }

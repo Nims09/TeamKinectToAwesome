@@ -54,12 +54,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <TextBlock Name="titletext" DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom"  FontFamily="Segoe UI" FontSize="30">Drumkit</TextBlock>
+            <TextBlock Name="titletext" DockPanel.Dock="Left" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="LightBlue" FontFamily="Segoe UI" FontSize="30">Drumkit</TextBlock>
         </DockPanel>
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
-            <Image Name="Image" Width="640" Height="480"/>
+            <Image Name="Image" Width="640"  Height="480"/>
         </Viewbox>
-        <StatusBar x:Name="statusBar" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
+        <StatusBar x:Name="statusBar" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Black" Foreground="{StaticResource MediumGreyBrush}">
         </StatusBar>       
     </Grid>
 </Window>
