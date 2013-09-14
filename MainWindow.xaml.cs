@@ -88,7 +88,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private Rect[,] grid;
 
-        private string[,] soundFiles;
+        private SoundPlayer[,] simpleSoundPlayers;
+
+
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
@@ -147,10 +149,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             PrepareSoundStrings();
-            
-//            string[] files = Directory.GetFiles(, "*ProfileHandler.cs", SearchOption.TopDirectoryOnly);
- //                       SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\
-
 
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
@@ -201,7 +199,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void PrepareSoundStrings()
         {
-            soundFiles = new String[5,4];
+            simpleSoundPlayers = new SoundPlayer[5, 4];
             string s = Directory.GetCurrentDirectory();
             DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
             FileInfo[] fi = di.GetFiles();
@@ -210,8 +208,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    soundFiles[i, j] = fi[i * 4 + j].Name;
-                    Console.WriteLine(soundFiles[i, j]);
+                    simpleSoundPlayers[i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + fi[i * 4 + j].Name);
                 }
             }
         }
@@ -349,7 +346,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
 
-            double threshold = 0.03;
+            double threshold = 0.05;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
@@ -381,9 +378,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         Console.Write(s);
 
                         Point yo = SkeletonPointToScreen(joint.Position);
-                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
-                        SimpleSound.Play();
-                        
+
+                        //SimpleSound.SoundLocation = s + "\\..\\..\\" + @"\SoundClips\M1_Piano_F#6.wav"; //+ ChooseSound(yo);
+
+
+                        ChooseSound(yo);
                         drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
@@ -424,7 +423,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
         #endregion makeColorPoint
 
-        private String ChooseSound(Point P)
+        private void ChooseSound(Point P)
         {
             int posX;
             int posY;
@@ -467,8 +466,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 posY = 3;
             }
-            text.Text = posX + " " + posY;
-            return soundFiles[posX, posY];
+
+            simpleSoundPlayers[posX, posY].PlaySync();
         }
 
 
@@ -515,7 +514,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 posY = 3;
             }
-            text.Text = posX +" "+ posY;
+            //text.Text = posX +" "+ posY;
             return grid[posX, posY];
         }
 
