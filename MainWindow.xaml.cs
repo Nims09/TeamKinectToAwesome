@@ -392,20 +392,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         Point p = ChooseQuadrant(yo);
                         if(p.Y == 3)
                         {
-                            if (p.X < 4 && p.X > 0) this.instrumentNo = (int)(p.X - 1);
-                            switch (this.instrumentNo)
+                            DateTime instrumentSetTime;
+                            if (p.X < 4 && p.X > 0) 
                             {
-                                case 0:
-                                    titletext.Text = "Drumkit";
-                                    break;
-                                case 1:
-                                    titletext.Text = "Piano";
-                                    break;
-                                default:
-                                    titletext.Text = "Saxophone";
-                                    break;
+                                this.instrumentNo = (int)(p.X - 1);
+                                instrumentSetTime = DateTime.Now;
                             }
-                                
+
+                            if (DateTime.Compare(instrumentSetTime.AddSeconds(1), DateTime.Now) > 0)
+                            {
+                                switch (this.instrumentNo)
+                                {
+                                    case 0:
+                                        titletext.Text = "Drumkit";
+                                        break;
+                                    case 1:
+                                        titletext.Text = "Piano";
+                                        break;
+                                    default:
+                                        titletext.Text = "Saxophone";
+                                        break;
+                                }
+                            }      
                         }
                         else
                         {
