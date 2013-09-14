@@ -378,16 +378,13 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         Console.Write(s);
 
                         Point yo = SkeletonPointToScreen(joint.Position);
-<<<<<<< HEAD
-                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
-                        SimpleSound.Play();                        
-=======
+                        //SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
+                        //SimpleSound.Play();      
 
                         //SimpleSound.SoundLocation = s + "\\..\\..\\" + @"\SoundClips\M1_Piano_F#6.wav"; //+ ChooseSound(yo);
 
 
                         ChooseSound(yo);
->>>>>>> 906c52a32f3484b93e82f66ee8829becfd32ffa2
                         drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
                     }
                     else
