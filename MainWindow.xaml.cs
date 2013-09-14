@@ -18,8 +18,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Rect[,] grid;
-
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -88,6 +86,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private Joint lastHandPos;
 
+        private Rect[,] grid;
+
+        private string[,] soundFiles;
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -144,6 +146,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            PrepareSoundStrings();
+            
+//            string[] files = Directory.GetFiles(, "*ProfileHandler.cs", SearchOption.TopDirectoryOnly);
+ //                       SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\
+
+
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
 
@@ -188,6 +196,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null == this.sensor)
             {
                 this.statusBarText.Text = Properties.Resources.NoKinectReady;
+            }
+        }
+
+        private void PrepareSoundStrings()
+        {
+            soundFiles = new String[5,4];
+            string s = Directory.GetCurrentDirectory();
+            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
+            FileInfo[] fi = di.GetFiles();
+            Console.WriteLine(di.FullName);
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    soundFiles[i, j] = fi[i * 4 + j].Name;
+                    Console.WriteLine(soundFiles[i, j]);
+                }
             }
         }
 
@@ -356,10 +381,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         Console.Write(s);
                         SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\Piano.ff.G7.wav");
                         SimpleSound.Play();
+<<<<<<< HEAD
                         Point yo = SkeletonPointToScreen(joint.Position);
 
 
                         drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
+=======
+
+
+>>>>>>> 9f4192b782dddbdfd485a460db42f4d15f2ac290
                     }
                     else
                     {
