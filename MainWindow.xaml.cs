@@ -379,17 +379,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         statusBar.Background = Brushes.Green;
                         string s = Directory.GetCurrentDirectory();
                         Console.Write(s);
-                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\Piano.ff.G7.wav");
-                        SimpleSound.Play();
-<<<<<<< HEAD
+
                         Point yo = SkeletonPointToScreen(joint.Position);
-
-
+                        SoundPlayer SimpleSound = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + ChooseSound(yo));
+                        SimpleSound.Play();
+                        
                         drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
-=======
-
-
->>>>>>> 9f4192b782dddbdfd485a460db42f4d15f2ac290
                     }
                     else
                     {
@@ -428,6 +423,54 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return new Point(colorPoint.X, colorPoint.Y);
         }
         #endregion makeColorPoint
+
+        private String ChooseSound(Point P)
+        {
+            int posX;
+            int posY;
+
+            if (P.X < RenderWidth / 5)
+            {
+                posX = 0;
+            }
+            else if (P.X < 2 * RenderWidth / 5)
+            {
+                posX = 1;
+            }
+            else if (P.X < 3 * RenderWidth / 5)
+            {
+                posX = 2;
+            }
+            else if (P.X < 4 * RenderWidth / 5)
+            {
+                posX = 3;
+            }
+            else
+            {
+                posX = 4;
+            }
+
+
+            if (P.Y < RenderHeight / 4)
+            {
+                posY = 0;
+            }
+            else if (P.Y < 2 * RenderHeight / 4)
+            {
+                posY = 1;
+            }
+            else if (P.Y < 3 * RenderHeight / 4)
+            {
+                posY = 2;
+            }
+            else
+            {
+                posY = 3;
+            }
+            text.Text = posX + " " + posY;
+            return soundFiles[posX, posY];
+        }
+
 
         private Rect ChooseQuadrant(Point P)
         {
