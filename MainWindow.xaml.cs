@@ -214,7 +214,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         //Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\" + sdi.Name + "\\" + fi[i * 4 + j].Name);
                         //Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
-                        simpleSoundPlayers[instrument, i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + sdi.Name + "\\" + fi[i * 4 + j].Name);
+                        simpleSoundPlayers[instrument, i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + sdi.Name + "\\" + fi[i * 3 + j].Name);
                     }
                 }
                 instrument++;
