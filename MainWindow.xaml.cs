@@ -12,6 +12,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     using Microsoft.Kinect;
     using System;
     using System.Media;
+    using System.Globalization;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -278,6 +279,39 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
                         dc.DrawRectangle(brushes[i,j], null, grid[i,j]);
+                        if (j == 3)
+                        {
+                            switch (i)
+                            {
+                                case 1:
+                                    dc.DrawText(new FormattedText("Drum",
+                                              CultureInfo.GetCultureInfo("en-us"),
+                                              FlowDirection.LeftToRight,
+                                              new Typeface("Verdana"),
+                                              36, System.Windows.Media.Brushes.White),
+                                              new System.Windows.Point(RenderWidth * (i) / 5, RenderHeight * (j) / 4 + 80));
+                                    break;
+                                case 2:
+                                    dc.DrawText(new FormattedText("Piano",
+                                              CultureInfo.GetCultureInfo("en-us"),
+                                              FlowDirection.LeftToRight,
+                                              new Typeface("Verdana"),
+                                              36, System.Windows.Media.Brushes.White),
+                                              new System.Windows.Point(RenderWidth * (i) / 5, RenderHeight * (j) / 4 + 80));
+                                    break;
+                                case 3:
+                                    dc.DrawText(new FormattedText("Sax",
+                                              CultureInfo.GetCultureInfo("en-us"),
+                                              FlowDirection.LeftToRight,
+                                              new Typeface("Verdana"),
+                                              36, System.Windows.Media.Brushes.White),
+                                              new System.Windows.Point(RenderWidth * (i) / 5, RenderHeight * (j) / 4 + 80));
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
                     }
                 }
                 Pen p = new Pen();
@@ -327,47 +361,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
-            /*
-            // Render Torso
-            this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderRight);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.Spine);
-            this.DrawBone(skeleton, drawingContext, JointType.Spine, JointType.HipCenter);
-            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
-
-            // Left Arm
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.WristLeft, JointType.HandLeft);
-
-            // Right Arm
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderRight, JointType.ElbowRight);
-            this.DrawBone(skeleton, drawingContext, JointType.ElbowRight, JointType.WristRight);
-            this.DrawBone(skeleton, drawingContext, JointType.WristRight, JointType.HandRight);
-
-            // Left Leg
-            this.DrawBone(skeleton, drawingContext, JointType.HipLeft, JointType.KneeLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeLeft, JointType.AnkleLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleLeft, JointType.FootLeft);
-
-            // Right Leg
-            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
-             */
-            #region test13
-            //test more 
-            #endregion test13
-
-            #region goo
-            //comment
-            //new comment
-            #endregion goo
-
-
-
             double threshold = 0.05;
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
