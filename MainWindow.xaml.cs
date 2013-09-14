@@ -434,69 +434,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             DepthImagePoint depthPoint = this.sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
-        #region makeColorPoint
-        /// <summary>
-        /// Maps a SkeletonPoint to lie within our render space and converts to Color Point
-        /// </summary>
-        /// <param name="skelpoint">point to map</param>
-        /// <returns>mapped point</returns>
-        private Point SkeletonPointToColorPoint(SkeletonPoint skelpoint)
-        {
-            // Convert point to color space.  
-            // We are not using depth directly, but we do want the points in our 640x480 output resolution.
-            ColorImagePoint colorPoint = this.sensor.CoordinateMapper.MapSkeletonPointToColorPoint(skelpoint, ColorImageFormat.RgbResolution640x480Fps30);
-            return new Point(colorPoint.X, colorPoint.Y);
-        }
-        #endregion makeColorPoint
-
-        private void ChooseSound(Point P)
-        {
-            int posX;
-            int posY;
-
-            if (P.X < RenderWidth / 5)
-            {
-                posX = 0;
-            }
-            else if (P.X < 2 * RenderWidth / 5)
-            {
-                posX = 1;
-            }
-            else if (P.X < 3 * RenderWidth / 5)
-            {
-                posX = 2;
-            }
-            else if (P.X < 4 * RenderWidth / 5)
-            {
-                posX = 3;
-            }
-            else
-            {
-                posX = 4;
-            }
-
-
-            if (P.Y < RenderHeight / 4)
-            {
-                posY = 0;
-            }
-            else if (P.Y < 2 * RenderHeight / 4)
-            {
-                posY = 1;
-            }
-            else if (P.Y < 3 * RenderHeight / 4)
-            {
-                posY = 2;
-            }
-            else
-            {
-                posY = 3;
-            }
-
-            simpleSoundPlayers[0, posX, posY].PlaySync();
-        }
-
-
+        
         private Point ChooseQuadrant(Point P)
         {
             int posX;
