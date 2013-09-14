@@ -88,7 +88,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private Rect[,] grid;
 
-        private SoundPlayer[,] simpleSoundPlayers;
+        private SoundPlayer[,,] simpleSoundPlayers;
 
         private SolidColorBrush[,] brushes;
 
@@ -196,19 +196,34 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        enum Instruments
+        {
+            drum,
+            piano,
+            sax
+        };
+
         private void PrepareSoundStrings()
         {
-            simpleSoundPlayers = new SoundPlayer[5, 4];
+            simpleSoundPlayers = new SoundPlayer[3, 5, 3];
             string s = Directory.GetCurrentDirectory();
-            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\drum\");
-            FileInfo[] fi = di.GetFiles();
-            Console.WriteLine(di.FullName);
-            for (int i = 0; i < 5; i++)
+            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
+            int instrument = 1;
+
+            foreach(DirectoryInfo sdi in di.GetDirectories())
             {
-                for (int j = 0; j < 4; j++)
+                FileInfo[] fi = sdi.GetFiles();
+
+                for (int i = 0; i < 5; i++)
                 {
-                    simpleSoundPlayers[i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
+                    for (int j = 0; j < 3; j++)
+                    {
+                        Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
+                        simpleSoundPlayers[instrument, i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
+                    }
                 }
+                instrument++;
+                Console.WriteLine();
             }
         }
 
@@ -482,7 +497,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 posY = 3;
             }
 
-            simpleSoundPlayers[posX, posY].PlaySync();
+            simpleSoundPlayers[posX, posX, posY].PlaySync();
         }
 
 
