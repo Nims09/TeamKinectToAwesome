@@ -32,7 +32,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Thickness of drawn joint lines
         /// </summary>
-        private const double JointThickness = 3;
+        private const double JointThickness = 8;
 
         /// <summary>
         /// Thickness of body center ellipse
@@ -52,12 +52,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Brush used for drawing joints that are currently tracked
         /// </summary>
-        private readonly Brush trackedJointBrush = new SolidColorBrush(Color.FromArgb(255, 68, 192, 68));
+        private readonly Brush trackedJointBrush = Brushes.White;
 
         /// <summary>
         /// Brush used for drawing joints that are currently inferred
         /// </summary>        
-        private readonly Brush inferredJointBrush = Brushes.Yellow;
+        private readonly Brush inferredJointBrush = Brushes.White;
 
         /// <summary>
         /// Pen used for drawing bones that are currently tracked
