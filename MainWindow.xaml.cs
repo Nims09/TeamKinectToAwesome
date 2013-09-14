@@ -226,11 +226,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 // Draw a transparent background to set the render size
                 Rect[,] grid = new Rect[5,4];
                 //dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
-                for(int i = 1; i < 5; i++)
+                for(int i = 0; i < 5; i++)
                 {
-                    for (int j = 1; j < 4; j++)
+                    for (int j = 0; j < 4; j++)
                     {
-                        grid[i, j] = new Rect(RenderWidth * (i - 1) / 5, RenderHeight * (j - 1) / 4, RenderWidth * (i) / 5, RenderHeight * (j) / 4);
+                        grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
                         dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
                     }
                 }
