@@ -95,6 +95,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private int instrumentNo;
 
+        private DateTime instrumentSetTime;
+
 
 
         /// <summary>
@@ -155,6 +157,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             PrepareSoundStrings();
             PrepareGridBrushes();
+            instrumentSetTime = DateTime.Now;
 
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
@@ -392,7 +395,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         Point p = ChooseQuadrant(yo);
                         if(p.Y == 3)
                         {
-                            DateTime instrumentSetTime;
                             if (p.X < 4 && p.X > 0) 
                             {
                                 this.instrumentNo = (int)(p.X - 1);
