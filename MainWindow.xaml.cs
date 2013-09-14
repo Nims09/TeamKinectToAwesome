@@ -18,6 +18,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Rect[,] grid;
+
         /// <summary>
         /// Width of output drawing
         /// </summary>
@@ -224,7 +226,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 #region gridDraw
                 // Draw a transparent background to set the render size
-                Rect[,] grid = new Rect[5,4];
+                grid = new Rect[5,4];
                 //dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
                 for(int i = 0; i < 5; i++)
                 {
@@ -358,10 +360,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         statusBar.Background = Brushes.Red;
                     }
+
                     Point yo = SkeletonPointToScreen(joint.Position);
-                    Console.WriteLine(yo.X);
-                    Console.WriteLine(yo.Y);
-                    Console.WriteLine(ChooseQuadrant(yo.X, yo.Y));
+
+
+                    drawingContext.DrawRectangle(Brushes.White, null, ChooseQuadrant(yo));
+//                    text.Text = Convert.ToString(ChooseQuadrant(yo)) + " " + Convert.ToString(yo.X) + " " + Convert.ToString(yo.Y);
                 }
                 lastHandPos = joint;
             }
@@ -394,34 +398,51 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
         #endregion makeColorPoint
 
-        private int ChooseQuadrant(double X, double Y)
+        private Rect ChooseQuadrant(Point P)
         {
             int posX;
             int posY;
 
-            if (X < 128){
+            if (P.X < 128)
+            {
                 posX = 0;
-            } else if (X < 256){
+            }
+            else if (P.X < 256)
+            {
                 posX = 1;
-            } else if (X < 384){
+            }
+            else if (P.X < 384)
+            {
                 posX = 2;
-            } else if (X < 512) {
+            }
+            else if (P.X < 512)
+            {
                 posX = 3;
-            } else {
+            }
+            else
+            {
                 posX = 4;
             }
 
 
-            if (Y < 120){
+            if (P.Y < 120)
+            {
                 posY = 0;
-            } else if (Y < 240){
+            }
+            else if (P.Y < 240)
+            {
                 posY = 1;
-            } else if (Y < 360){
+            }
+            else if (P.Y < 360)
+            {
                 posY = 2;
-            } else {
+            }
+            else
+            {
                 posY = 3;
             }
-            return posX*4 + posY;
+            text.Text = posX +" "+ posY;
+            return grid[posX, posY];
         }
 
         /// <summary>
