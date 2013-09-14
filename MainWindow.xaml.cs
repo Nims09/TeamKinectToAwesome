@@ -90,6 +90,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private SoundPlayer[,] simpleSoundPlayers;
 
+        private SolidColorBrush[,] brushes;
+
 
 
         /// <summary>
@@ -149,6 +151,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             PrepareSoundStrings();
+            PrepareGridBrushes();
 
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
@@ -197,17 +200,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             simpleSoundPlayers = new SoundPlayer[5, 4];
             string s = Directory.GetCurrentDirectory();
-            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
+            DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\drum\");
             FileInfo[] fi = di.GetFiles();
             Console.WriteLine(di.FullName);
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    simpleSoundPlayers[i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\" + fi[i * 4 + j].Name);
+                    simpleSoundPlayers[i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
                 }
             }
         }
+
+        private void PrepareGridBrushes()
+        {
+            this.brushes = new SolidColorBrush[5,4] {{Brushes.Chartreuse, Brushes.Coral, Brushes.BlueViolet, Brushes.CornflowerBlue},
+                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
+                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
+                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue},
+                        {Brushes.AliceBlue, Brushes.Azure, Brushes.BlueViolet, Brushes.CadetBlue}};
+        }
+    
 
         /// <summary>
         /// Execute shutdown tasks
@@ -242,6 +255,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             using (DrawingContext dc = this.drawingGroup.Open())
             {
+                
                 #region gridDraw
                 // Draw a transparent background to set the render size
                 grid = new Rect[5,4];
@@ -251,8 +265,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     for (int j = 0; j < 4; j++)
                     {
                         grid[i, j] = new Rect(RenderWidth * (i) / 5, RenderHeight * (j) / 4, RenderWidth * (i + 1) / 5, RenderHeight * (j + 1) / 4);
-                        if(j % 2 == 0) dc.DrawRectangle(Brushes.Black, null, grid[i,j]);
-                        else dc.DrawRectangle(Brushes.Gray, null, grid[i, j]);
+                        dc.DrawRectangle(brushes[i,j], null, grid[i,j]);
                     }
                 }
                 Pen p = new Pen();
@@ -266,6 +279,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     dc.DrawLine(p, new Point(0.0, RenderHeight*i/4), new Point(RenderWidth, RenderHeight*i/4));
                 }
                 #endregion gridDraw
+                
 
                 if (skeletons.Length != 0)
                     {
