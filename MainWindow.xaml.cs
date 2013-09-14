@@ -193,22 +193,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor = null;
                 }
             }
-
         }
-
-        enum Instruments
-        {
-            drum,
-            piano,
-            sax
-        };
 
         private void PrepareSoundStrings()
         {
             simpleSoundPlayers = new SoundPlayer[3, 5, 3];
             string s = Directory.GetCurrentDirectory();
             DirectoryInfo di = new DirectoryInfo(s + "\\..\\..\\" + @"\SoundClips\");
-            int instrument = 1;
+            int instrument = 0;
 
             foreach(DirectoryInfo sdi in di.GetDirectories())
             {
@@ -218,7 +210,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
+                        //Console.WriteLine(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
                         simpleSoundPlayers[instrument, i,j] = new SoundPlayer(s + "\\..\\..\\" + @"\SoundClips\drum\" + fi[i * 4 + j].Name);
                     }
                 }
